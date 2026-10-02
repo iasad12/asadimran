@@ -1,0 +1,316 @@
+@import "tailwindcss";
+
+:root {
+  --bg-color: #0a001f;
+  --bg-secondary: #0f0529;
+  --text-color: #e0e0e0;
+  --text-muted: #9ca3af;
+  --accent-color: #6d28d9;
+  --highlight-color: #00ff9d;
+  --border-color: rgba(255, 255, 255, 0.1);
+}
+
+@theme {
+  --color-bg-primary: #0a001f;
+  --color-bg-secondary: #0f0529;
+  --color-highlight: #00ff9d;
+  --color-accent: #6d28d9;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .display-font {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Card Animations */
+.project-card {
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.project-card:hover {
+  border-color: var(--highlight-color);
+  transform: translateY(-5px);
+}
+
+/* Reveal Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero Image Morphing Shape */
+.hero-img {
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  animation: morph 8s ease-in-out infinite;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@keyframes morph {
+  0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+  50% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+}
+
+/* Marquee Animation */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+.marquee-content {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Stat Number Effect */
+.stat-number {
+  -webkit-text-stroke: 1px var(--text-color);
+  color: transparent;
+  transition: 0.3s;
+}
+.stat-card:hover .stat-number {
+  color: var(--highlight-color);
+  -webkit-text-stroke: 0px;
+}
+
+/* Service Card Glow */
+.service-card {
+  position: relative;
+  transition: all 0.3s ease;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, transparent 40%, var(--highlight-color) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.service-card:hover::before {
+  opacity: 1;
+}
+
+/* Particle Background */
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--highlight-color);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float 15s infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+  50% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+/* FAQ Accordion */
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+.faq-item.active .faq-content {
+  max-height: 500px;
+}
+.faq-icon {
+  transition: transform 0.3s ease;
+}
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+}
+
+/* Carousel */
+.testimonial-carousel {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+/* Skills Bar */
+.skill-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.skill-progress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--highlight-color), var(--accent-color));
+  border-radius: 3px;
+  transition: width 1s ease-out;
+}
+
+/* Process Timeline */
+.timeline-connector {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 0.5rem);
+  width: calc(100% - 1rem);
+  height: 2px;
+  background: linear-gradient(90deg, var(--highlight-color), transparent);
+}
+
+/* Booking Calendar */
+.calendar-day {
+  transition: all 0.2s ease;
+}
+.calendar-day:hover:not(.disabled) {
+  background: var(--highlight-color);
+  color: var(--bg-color);
+}
+.calendar-day.selected {
+  background: var(--highlight-color);
+  color: var(--bg-color);
+}
+.calendar-day.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Blog Card */
+.blog-card {
+  transition: all 0.3s ease;
+}
+.blog-card:hover {
+  transform: translateY(-5px);
+}
+.blog-card:hover .blog-image {
+  transform: scale(1.05);
+}
+
+/* CTA Glow Effect */
+.cta-glow {
+  position: relative;
+}
+.cta-glow::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: var(--highlight-color);
+  border-radius: 50%;
+  filter: blur(150px);
+  opacity: 0.1;
+  z-index: 0;
+}
+
+/* Form Styles */
+.form-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 0 3px rgba(0, 255, 157, 0.1);
+}
+
+/* Button Styles */
+.btn-primary {
+  background: var(--highlight-color);
+  color: var(--bg-color);
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover {
+  background: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  border-color: var(--highlight-color);
+  color: var(--highlight-color);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+/* Filter Tabs */
+.filter-tab {
+  transition: all 0.3s ease;
+}
+.filter-tab.active {
+  color: var(--highlight-color);
+  border-color: var(--highlight-color);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
